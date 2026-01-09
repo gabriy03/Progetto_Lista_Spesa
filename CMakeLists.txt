@@ -25,16 +25,21 @@ set(SOURCE_FILES
         Utente.h
         Subject.h
         Observer.h
+        Prodotto.h
+        Prodotto.cpp
 )
 
 add_executable(ProgettoListaSpesa ${SOURCE_FILES})
 
 add_executable(EseguiTest
         UtenteTest.cpp
+        ProdottoTest.cpp
         Utente.cpp
         Utente.h
         Subject.h
         Observer.h
+        Prodotto.h
+        Prodotto.cpp
 )
 
 target_link_libraries(EseguiTest gtest_main)
