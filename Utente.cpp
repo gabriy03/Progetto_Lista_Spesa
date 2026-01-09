@@ -3,6 +3,7 @@
 //
 
 #include "Utente.h"
+#include <iostream>
 
 
 Utente::Utente(const std::string &nomeUtente, const std::string &pass)
@@ -28,4 +29,8 @@ bool Utente::login(const std::string &inputNick, const std::string &inputPass) c
 
 void Utente::modificaPassword(const std::string &nuovaPass) {
     password = nuovaPass;
+}
+
+void Utente::update() {
+    std::cout << "Ding! L'utente " << nickname << " ha notato un cambiamento nella lista!" << std::endl;
 }

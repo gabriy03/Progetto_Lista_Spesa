@@ -37,6 +37,7 @@ add_executable(EseguiTest
         UtenteTest.cpp
         ProdottoTest.cpp
         ListaSpesaTest.cpp
+        ObserverTest.cpp
         Utente.cpp
         Utente.h
         Subject.h

@@ -7,11 +7,15 @@
 
 #include <string>
 
-class Utente {
+#include "Observer.h"
+
+class Utente : public Observer{
 
 public:
 
     Utente(const std::string& nomeUtente, const std::string& pass);
+
+    virtual ~Utente() {}
 
     std::string getNickname() const;
 
@@ -20,8 +24,9 @@ public:
     // Metodo per il login (restituisce true se nick e pass sono corretti)
     bool login(const std::string& inputNick, const std::string& inputPass) const;
 
-
     void modificaPassword(const std::string& nuovaPass);
+
+    void update() override;
 
 
 private:
