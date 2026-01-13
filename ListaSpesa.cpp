@@ -35,6 +35,23 @@ void ListaSpesa::rimuoviProdotto(const Prodotto& p) {
     notify();
 }
 
+bool ListaSpesa::modificaProdotto(int indice, int nuovaQuantita, float nuovoPrezzo) {
+    if (indice < 0 or indice >= prodotti.size()) {
+        return false;
+    }
+    int contatore = 0;
+    for (auto& p : prodotti) {
+        if (contatore == indice) {
+            p.setQuantita(nuovaQuantita);
+            p.setPrezzo(nuovoPrezzo);
+            notify();
+            return true;
+        }
+        contatore++;
+    }
+    return false;
+}
+
 const std::list<Prodotto>& ListaSpesa::getProdotti() const {
     return prodotti;
 }

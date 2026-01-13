@@ -27,6 +27,7 @@ public:
     // --- METODI DELLA LISTA ---
     void aggiungiProdotto(const Prodotto& p);
     void rimuoviProdotto(const Prodotto& p);
+    bool modificaProdotto(int indice, int nuovaQuantita, float nuovoPrezzo);
 
     // Utile poi per i Test e per la Stampa
     const std::list<Prodotto>& getProdotti() const;

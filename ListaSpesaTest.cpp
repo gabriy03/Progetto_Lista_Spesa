@@ -23,10 +23,29 @@ TEST(ListaSpesaTest, GestioneProdotti) {
     // Verifico che il primo sia il Latte
     EXPECT_EQ(lista.getProdotti().front().getNome(), "Latte");
 
-    // Rimuovo il Latte
-    lista.rimuoviProdotto(p1);
+    // Rimuovo il Pane
+    lista.rimuoviProdotto(p2);
 
-    // Verifico se ne rimane solo 1 (il Pane)
+    // Verifico se ne rimane solo 1 (il Latte)
     ASSERT_EQ(lista.getProdotti().size(), 1);
-    EXPECT_EQ(lista.getProdotti().front().getNome(), "Pane");
+    EXPECT_EQ(lista.getProdotti().front().getNome(), "Latte");
+
+    // Verifico se funziona la modifica
+    // Modifico il Latte (Indice 0): Quantità 1->5, Prezzo 1.50->0.80
+    bool risultato = lista.modificaProdotto(0, 5, 0.80);
+
+    ASSERT_TRUE(risultato);
+
+    // Controllo se i dati sono cambiati
+    const auto& prodotti = lista.getProdotti();
+    const Prodotto& primoProdotto = prodotti.front();
+
+    EXPECT_EQ(primoProdotto.getQuantita(), 5);
+    EXPECT_FLOAT_EQ(primoProdotto.getPrezzo(), 0.80);
+    // Verifico che il totale sia aggiornato (5 * 0.80 = 4.0)
+    EXPECT_FLOAT_EQ(primoProdotto.getCostoTotale(), 4.0);
+
+    // TEST FALLIMENTO: Provo a modificare indice 99 (non esiste)
+    bool risultatoFallito = lista.modificaProdotto(99, 1, 1.0);
+    EXPECT_FALSE(risultatoFallito);
 }
