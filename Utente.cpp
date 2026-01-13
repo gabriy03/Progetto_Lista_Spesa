@@ -26,6 +26,9 @@ bool Utente::login(const std::string &inputNick, const std::string &inputPass) c
     return false;
 }
 
+void Utente::modificaNickName(const std::string& nuovoNick) {
+    nickname = nuovoNick;
+}
 
 void Utente::modificaPassword(const std::string &nuovaPass) {
     password = nuovaPass;

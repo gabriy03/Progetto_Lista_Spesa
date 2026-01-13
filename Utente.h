@@ -24,6 +24,7 @@ public:
     // Metodo per il login (restituisce true se nick e pass sono corretti)
     bool login(const std::string& inputNick, const std::string& inputPass) const;
 
+    void modificaNickName(const std::string& nuovoNick);
     void modificaPassword(const std::string& nuovaPass);
 
     void update() override;
