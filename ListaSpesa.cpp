@@ -23,10 +23,17 @@ void ListaSpesa::notify() {
 }
 
 
-void ListaSpesa::aggiungiProdotto(const Prodotto& p) {
+bool ListaSpesa::aggiungiProdotto(const Prodotto& p) {
+    for (const auto& esistente : prodotti) {
+        if (esistente == p) {
+            return false;
+        }
+    }
+
+    // Se arriva qui, non ha trovato duplicati. Aggiunge.
     prodotti.push_back(p);
-    // Notifico il cambiamento della lista agli altri utenti che condividono la lista
     notify();
+    return true;
 }
 
 void ListaSpesa::rimuoviProdotto(const Prodotto& p) {

@@ -3,16 +3,35 @@
 //
 
 #include "Prodotto.h"
+#include <cctype>
 
-Prodotto::Prodotto(const std::string &nome, const std::string &descrizione, const std::string &categoria, int quantita, float prezzo)
-    : nome(nome), descrizione(descrizione), categoria(categoria), quantita(quantita), prezzo(prezzo) {}
+Prodotto::Prodotto(std::string nome, std::string marca, std::string categoria, int quantita, float prezzo)
+    : nome(nome), marca(marca), categoria(categoria), quantita(quantita), prezzo(prezzo) {
+
+
+    // Converti nome in MAIUSCOLO
+    // Ho messo la & per modificare direttamente i caratteri della stringa
+    for (char &c : this->nome) {
+        c = std::toupper(c);
+    }
+
+    // Converti marca in MAIUSCOLO
+    for (char &c : this->marca) {
+        c = std::toupper(c);
+    }
+
+    // Converto marca in MAIUSCOLO
+    for (char &c : this->categoria) {
+        c = std::toupper(c);
+    }
+}
 
 std::string Prodotto::getNome() const {
     return nome;
 }
 
-std::string Prodotto::getDescrizione() const {
-    return descrizione;
+std::string Prodotto::getMarca() const {
+    return marca;
 }
 
 std::string Prodotto::getCategoria() const {
@@ -40,8 +59,8 @@ float Prodotto::getCostoTotale() const {
 }
 
 bool Prodotto::operator==(const Prodotto &altro) const {
-    // Due prodotti sono uguali se hanno stesso Nome, Descrizione e Categoria.
-    if ((nome == altro.nome) && (descrizione == altro.descrizione) && (categoria == altro.categoria)) {
+    // Due prodotti sono uguali se hanno stesso Nome e Marca
+    if ((this->nome == altro.nome) && (this->marca == altro.marca)) {
         return true;
     }
     return false;

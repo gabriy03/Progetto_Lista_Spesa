@@ -11,11 +11,10 @@ class Prodotto {
 
 public:
 
-    Prodotto(const std::string& nome, const std::string& descrizione, const std::string& categoria, int quantita, float prezzo);
-
+    Prodotto(std::string nome, std::string marca, std::string categoria, int quantita, float prezzo);
 
     std::string getNome() const;
-    std::string getDescrizione() const;
+    std::string getMarca() const;
     std::string getCategoria() const;
     int getQuantita() const;
     float getPrezzo() const;
@@ -28,13 +27,13 @@ public:
     // Calcola il totale (quantità * prezzo)
     float getCostoTotale() const;
 
-    // Insegno all'operatore (==) a confrontare il NOME + DESCRIZIONE + CATEGORIA di due prodotti
-    // Mi servirà per trovare e rimuovere il prodotto dalla lista
+    // Insegno all'operatore (==) a confrontare il NOME + MARCA di due prodotti
+    // Mi servirà per non aggiungere due volte lo stesso prodotto a una lista
     bool operator==(const Prodotto& altro) const;
 
 private:
     std::string nome;
-    std::string descrizione;
+    std::string marca;
     std::string categoria;
     int quantita;
     float prezzo;

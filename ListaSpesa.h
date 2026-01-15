@@ -25,7 +25,7 @@ public:
     void notify() override;
 
     // --- METODI DELLA LISTA ---
-    void aggiungiProdotto(const Prodotto& p);
+    bool aggiungiProdotto(const Prodotto& p);
     void rimuoviProdotto(const Prodotto& p);
     bool modificaProdotto(int indice, int nuovaQuantita, float nuovoPrezzo);
 

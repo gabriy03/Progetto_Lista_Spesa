@@ -7,24 +7,34 @@
 
 TEST(ProdottoTest, CostruttoreEGetter) {
 
-    Prodotto p("Latte", "Intero", "Alimentari", 2, 1.50);
+    Prodotto p("latte", "mukki", "alimentari", 2, 1.50);
 
-    EXPECT_EQ(p.getNome(), "Latte");
-    EXPECT_EQ(p.getDescrizione(), "Intero");
-    EXPECT_EQ(p.getCategoria(), "Alimentari");
+    EXPECT_EQ(p.getNome(), "LATTE");
+    EXPECT_EQ(p.getMarca(), "MUKKI");
+    EXPECT_EQ(p.getCategoria(), "ALIMENTARI");
     EXPECT_EQ(p.getQuantita(), 2);
     EXPECT_FLOAT_EQ(p.getPrezzo(), 1.50);
 }
 
+TEST(ProdottoTest, ConversioneMaiuscolo) {
+
+    Prodotto p("latte", "granarolo", "alimentari", 1, 1.50);
+
+    // Mi aspetto che sia diventato tutto MAIUSCOLO
+    EXPECT_EQ(p.getNome(), "LATTE");
+    EXPECT_EQ(p.getMarca(), "GRANAROLO");
+    EXPECT_EQ(p.getCategoria(), "ALIMENTARI");
+}
+
 TEST(ProdottoTest, CalcoloCostoTotale) {
-    Prodotto p("Pasta", "Spaghetti n.5", "Alimentari", 3, 2.00);
+    Prodotto p("spaghetti", "barilla", "alimentari", 3, 2.00);
     EXPECT_FLOAT_EQ(p.getCostoTotale(), 6.00);
 }
 
 TEST(ProdottoTest, OperatoreUguaglianza) {
-    Prodotto p1("Pasta", "Spaghetti n.1", "Alimentari", 1, 1.00);
-    Prodotto p2("Pasta", "Spaghetti n.1", "Alimentari", 5, 1.00);
-    Prodotto p3("Pasta", "Penne", "Alimentari", 1, 1.00);
+    Prodotto p1("penne rigate", "barilla", "alimentari", 1, 3.00);
+    Prodotto p2("penne rigate", "barilla", "alimentari", 5, 3.00);
+    Prodotto p3("penne", "coop", "alimentari", 1, 1.50);
 
     // p1 e p2 sono lo stesso prodotto
     EXPECT_TRUE(p1 == p2);
