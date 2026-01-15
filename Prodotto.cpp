@@ -9,13 +9,13 @@ Prodotto::Prodotto(std::string nome, std::string marca, std::string categoria, i
     : nome(nome), marca(marca), categoria(categoria), quantita(quantita), prezzo(prezzo) {
 
 
-    // Converti nome in MAIUSCOLO
+    // Converto nome in MAIUSCOLO
     // Ho messo la & per modificare direttamente i caratteri della stringa
     for (char &c : this->nome) {
         c = std::toupper(c);
     }
 
-    // Converti marca in MAIUSCOLO
+    // Converto marca in MAIUSCOLO
     for (char &c : this->marca) {
         c = std::toupper(c);
     }

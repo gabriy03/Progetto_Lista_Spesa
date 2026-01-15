@@ -26,7 +26,7 @@ public:
 
     // --- METODI DELLA LISTA ---
     bool aggiungiProdotto(const Prodotto& p);
-    void rimuoviProdotto(const Prodotto& p);
+    bool rimuoviProdotto(int indice);
     bool modificaProdotto(int indice, int nuovaQuantita, float nuovoPrezzo);
 
     // Utile poi per i Test e per la Stampa

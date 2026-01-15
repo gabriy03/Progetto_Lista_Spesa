@@ -42,9 +42,12 @@ TEST(ObserverTest, NotificaFunzionante) {
     // Rimuovo il prodotto. Adesso solamente Mario dovrebbe ricevere la notifica
     std::cout << "" << std::endl;
     std::cout << "--- Inizio Test Rimozione ---" << std::endl;
-    lista.rimuoviProdotto(p);
+    lista.rimuoviProdotto(0);
     std::cout << "--- Fine Test Rimozione ---" << std::endl;
     std::cout << "" << std::endl;
+
+    // Verifico che il prodotto non ci sia più
+    ASSERT_EQ(lista.getProdotti().size(), 0);
 
     // Alla fine pulisco la memoria
     delete mario;

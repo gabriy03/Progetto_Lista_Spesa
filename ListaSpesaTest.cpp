@@ -31,7 +31,7 @@ TEST(ListaSpesaTest, GestioneProdotti) {
     EXPECT_EQ(lista.getProdotti().front().getNome(), "LATTE");
 
     // Rimuovo il Pane
-    lista.rimuoviProdotto(p2);
+    lista.rimuoviProdotto(1);
 
     // Verifico se ne rimane solo 1 (il Latte)
     ASSERT_EQ(lista.getProdotti().size(), 1);
@@ -60,7 +60,7 @@ TEST(ListaSpesaTest, GestioneProdotti) {
 TEST(ListaSpesaTest, NoDuplicati) {
     ListaSpesa lista("Picnic");
     // Creiamo un prodotto
-    Prodotto p1("ACQUA", "SANT'ANNA", "Bibite", 6, 0.50);
+    Prodotto p1("acqua", "sant'anna", "Bibite", 6, 0.50);
 
     // Primo inserimento va bene
     ASSERT_TRUE(lista.aggiungiProdotto(p1));

@@ -3,6 +3,7 @@
 //
 
 #include "ListaSpesa.h"
+#include <iterator>
 
 ListaSpesa::ListaSpesa(const std::string& nome) : nomeLista(nome) {}
 
@@ -36,10 +37,19 @@ bool ListaSpesa::aggiungiProdotto(const Prodotto& p) {
     return true;
 }
 
-void ListaSpesa::rimuoviProdotto(const Prodotto& p) {
-    prodotti.remove(p);
-    // Notifico il cambiamento della lista agli altri utenti che condividono la lista
+bool ListaSpesa::rimuoviProdotto(int indice) {
+    if (indice < 0 or indice >= prodotti.size()) {
+        return false;
+    }
+    // Punto all'inizio della lista
+    auto it = prodotti.begin();
+
+    // Avanzo fino all'elemento che voglio cancellare
+    std::advance(it, indice);
+
+    prodotti.erase(it);
     notify();
+    return true;
 }
 
 bool ListaSpesa::modificaProdotto(int indice, int nuovaQuantita, float nuovoPrezzo) {
