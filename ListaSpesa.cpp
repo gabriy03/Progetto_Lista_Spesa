@@ -4,7 +4,8 @@
 
 #include "ListaSpesa.h"
 #include <iterator>
-#include <fstream>
+#include <fstream> // Serve per leggere/scrivere File
+#include <sstream> // Serve per leggere le righe
 
 ListaSpesa::ListaSpesa(const std::string& nome) : nomeLista(nome) {}
 
@@ -70,13 +71,13 @@ bool ListaSpesa::modificaProdotto(int indice, int nuovaQuantita, float nuovoPrez
     return false;
 }
 
-void ListaSpesa::salvaSuFile(const std::string &nomeFile) const {
+bool ListaSpesa::salvaSuFile(const std::string &nomeFile) const {
     // Apro il file per scriverci dentro
     std::ofstream file(nomeFile);
 
     // Controllo se il file si è aperto
     if (!file.is_open()) {
-        return;
+        return false;
     }
 
     // Scorro la lista e scrivo ogni prodotto su una riga separati da ";"
@@ -90,6 +91,7 @@ void ListaSpesa::salvaSuFile(const std::string &nomeFile) const {
 
     // Chiudo il file
     file.close();
+    return true;
 }
 
 const std::list<Prodotto>& ListaSpesa::getProdotti() const {

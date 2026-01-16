@@ -9,8 +9,6 @@
 #include "Prodotto.h"
 #include <list>
 #include <string>
-#include <fstream> // Serve per leggere/scrivere File
-#include <sstream> // Serve per leggere le righe
 
 // ListaSpesa è il Concrete Subject
 class ListaSpesa : public Subject {
@@ -32,8 +30,8 @@ public:
     bool modificaProdotto(int indice, int nuovaQuantita, float nuovoPrezzo);
 
     // --- METODI PER I FILE ---
-    void salvaSuFile(const std::string& nomeFile) const;
-    void caricaDaFile(const std::string& nomeFile);
+    bool salvaSuFile(const std::string& nomeFile) const;
+    bool caricaDaFile(const std::string& nomeFile);
 
     // Utile poi per i Test e per la Stampa
     const std::list<Prodotto>& getProdotti() const;
