@@ -21,8 +21,7 @@ TEST(ObserverTest, NotificaFunzionante) {
     lista.aggiungiObserver(luigi);
 
     // Aggiungo un prodotto, quindi mi aspetto che partano le notifiche
-    std::cout << "" << std::endl;
-    std::cout << "--- Inizio Test Aggiunta Prodotto ---" << std::endl;
+    std::cout << "\n--- Inizio Test Aggiunta Prodotto ---" << std::endl;
     Prodotto p("Birra", "Cassa da 6", "Bibite", 2, 3.50);
     lista.aggiungiProdotto(p);
     std::cout << "--- Fine Test Aggiunta ---" << std::endl;
@@ -31,8 +30,7 @@ TEST(ObserverTest, NotificaFunzionante) {
     ASSERT_EQ(lista.getProdotti().size(), 1);
 
     //Modifico un prodotto. Mario e Luigi dovrebbero ricevere la notifica
-    std::cout << "" << std::endl;
-    std::cout << "--- Inizio Test Modifica Prodotto ---" << std::endl;
+    std::cout << "\n--- Inizio Test Modifica Prodotto ---" << std::endl;
     lista.modificaProdotto(0,3,3.00);
     std::cout << "--- Fine Test Modifica Prodotto ---" << std::endl;
 
@@ -40,11 +38,9 @@ TEST(ObserverTest, NotificaFunzionante) {
     lista.rimuoviObserver(luigi);
 
     // Rimuovo il prodotto. Adesso solamente Mario dovrebbe ricevere la notifica
-    std::cout << "" << std::endl;
-    std::cout << "--- Inizio Test Rimozione ---" << std::endl;
+    std::cout << "\n--- Inizio Test Rimozione ---" << std::endl;
     lista.rimuoviProdotto(0);
-    std::cout << "--- Fine Test Rimozione ---" << std::endl;
-    std::cout << "" << std::endl;
+    std::cout << "--- Fine Test Rimozione ---\n" << std::endl;
 
     // Verifico che il prodotto non ci sia più
     ASSERT_EQ(lista.getProdotti().size(), 0);

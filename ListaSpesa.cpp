@@ -4,6 +4,7 @@
 
 #include "ListaSpesa.h"
 #include <iterator>
+#include <fstream>
 
 ListaSpesa::ListaSpesa(const std::string& nome) : nomeLista(nome) {}
 
@@ -67,6 +68,28 @@ bool ListaSpesa::modificaProdotto(int indice, int nuovaQuantita, float nuovoPrez
         contatore++;
     }
     return false;
+}
+
+void ListaSpesa::salvaSuFile(const std::string &nomeFile) const {
+    // Apro il file per scriverci dentro
+    std::ofstream file(nomeFile);
+
+    // Controllo se il file si è aperto
+    if (!file.is_open()) {
+        return;
+    }
+
+    // Scorro la lista e scrivo ogni prodotto su una riga separati da ";"
+    for (const auto& p : prodotti) {
+        file << p.getNome() << ";"
+             << p.getMarca() << ";"
+             << p.getCategoria() << ";"
+             << p.getQuantita() << ";"
+             << p.getPrezzo() << "\n";
+    }
+
+    // Chiudo il file
+    file.close();
 }
 
 const std::list<Prodotto>& ListaSpesa::getProdotti() const {
