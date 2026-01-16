@@ -94,6 +94,60 @@ bool ListaSpesa::salvaSuFile(const std::string &nomeFile) const {
     return true;
 }
 
+bool ListaSpesa::caricaDaFile(const std::string& nomeFile) {
+    // Prendo il file da caricare
+    std::ifstream file(nomeFile);
+
+    // Controllo se il file si apre
+    if (!file.is_open()) {
+        return false;
+    }
+
+    //Svuoto la lista attuale
+    prodotti.clear();
+
+    std::string riga;
+
+    // Leggo il file riga per riga
+    while (std::getline(file, riga)) {
+
+        if (riga.empty())   // Mi serve per saltare eventuali righe vuote
+            continue;
+
+        std::stringstream ss(riga);
+        std::string nome, marca, categoria, strQuantita, strPrezzo;
+
+        // Divido la riga usando il punto e virgola ';' come divisorio
+        std::getline(ss, nome, ';');
+        std::getline(ss, marca, ';');
+        std::getline(ss, categoria, ';');
+        std::getline(ss, strQuantita, ';');
+        std::getline(ss, strPrezzo, ';');
+
+        // Controllo se abbiamo tutti gli attributi
+        if (!nome.empty() && !marca.empty() && !categoria.empty() && !strQuantita.empty() && !strPrezzo.empty()) {
+
+            // Mi proteggo da un'eventuale conversione sbagliata
+            try {
+                int q = std::stoi(strQuantita);
+                float p = std::stof(strPrezzo);
+                Prodotto nuovo(nome, marca, categoria, q, p);
+                prodotti.push_back(nuovo);
+
+            } catch (...) {
+                // Se c'è stato un errore di conversione, il file è corrotto.
+                prodotti.clear();
+                file.close();
+                return false;
+            }
+        }
+    }
+    // Se arrivo qui, tutto è andato bene
+    file.close();
+    notify();
+    return true;
+}
+
 const std::list<Prodotto>& ListaSpesa::getProdotti() const {
     return prodotti;
 }

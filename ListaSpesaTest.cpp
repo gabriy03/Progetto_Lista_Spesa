@@ -4,6 +4,7 @@
 
 #include "gtest/gtest.h"
 #include "ListaSpesa.h"
+#include <fstream>
 
 TEST(ListaSpesaTest, GestioneProdotti) {
     ListaSpesa lista("Spesa Casa");
@@ -67,4 +68,53 @@ TEST(ListaSpesaTest, NoDuplicati) {
 
     // Secondo inserimento (stesso oggetto) deve fallire
     ASSERT_FALSE(lista.aggiungiProdotto(p1));
+}
+
+TEST(ListaSpesaTest, SalvaECaricaDaFile) {
+    std::string fileGiusto = "test_spesa.txt";
+    std::string fileRotto = "test_spesa_rotto.txt";
+
+    // --- CASO DI SUCCESSO ---
+    ListaSpesa lista1("Lista Originale");
+    lista1.aggiungiProdotto(Prodotto("Latte", "Mukki", "Alimentari", 2, 1.50));
+    lista1.aggiungiProdotto(Prodotto("Pane", "Coop", "Alimentari", 1, 1.00));
+
+    // Controllo che il Salvataggio sul file sia andato a buon fine
+    ASSERT_TRUE(lista1.salvaSuFile(fileGiusto));
+
+    ListaSpesa lista2("Lista Nuova");
+
+    // Controllo che il caricamento del file sia andato a buon fine
+    ASSERT_TRUE(lista2.caricaDaFile(fileGiusto));
+
+    // Verifico i dati caricati
+    ASSERT_EQ(lista2.getProdotti().size(), 2);
+    // Primo Prodotto
+    EXPECT_EQ(lista2.getProdotti().front().getNome(), "LATTE");
+    EXPECT_EQ(lista2.getProdotti().front().getMarca(), "MUKKI");
+    EXPECT_EQ(lista2.getProdotti().front().getCategoria(), "ALIMENTARI");
+    EXPECT_EQ(lista2.getProdotti().front().getQuantita(), 2);
+    EXPECT_EQ(lista2.getProdotti().front().getPrezzo(), 1.50);
+    // Secondo Prodotto
+    EXPECT_EQ(lista2.getProdotti().back().getNome(), "PANE");
+    EXPECT_EQ(lista2.getProdotti().back().getMarca(), "COOP");
+    EXPECT_EQ(lista2.getProdotti().back().getCategoria(), "ALIMENTARI");
+    EXPECT_EQ(lista2.getProdotti().back().getQuantita(), 1);
+    EXPECT_EQ(lista2.getProdotti().back().getPrezzo(), 1.00);
+
+
+    // --- CASO DI FALLIMENTO (FILE CORROTTO) ---
+    // Modifico il File in modo diretto
+    std::ofstream Sbagliato(fileRotto);
+    Sbagliato << "VINO;TAVERNELLO;ALCOLICI;due;3.5";
+    Sbagliato.close();
+
+    ListaSpesa lista3("Lista Sbagliata");
+
+    // Mi aspetto un errore nel caricamento
+    bool esito = lista3.caricaDaFile(fileRotto);
+    ASSERT_FALSE(esito);
+
+    // La lista deve essere vuota (perchè abbiamo pulito tutto nel catch)
+    ASSERT_TRUE(lista3.getProdotti().empty());
 }
