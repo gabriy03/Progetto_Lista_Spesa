@@ -29,6 +29,8 @@ set(SOURCE_FILES
         Prodotto.cpp
         ListaSpesa.h
         ListaSpesa.cpp
+        Grafica.h
+        Grafica.cpp
 )
 
 add_executable(ProgettoListaSpesa ${SOURCE_FILES})
@@ -38,6 +40,7 @@ add_executable(EseguiTest
         ProdottoTest.cpp
         ListaSpesaTest.cpp
         ObserverTest.cpp
+        GraficaTest.cpp
         Utente.cpp
         Utente.h
         Subject.h
@@ -46,6 +49,8 @@ add_executable(EseguiTest
         Prodotto.cpp
         ListaSpesa.h
         ListaSpesa.cpp
+        Grafica.h
+        Grafica.cpp
 )
 
 target_link_libraries(EseguiTest gtest_main)
