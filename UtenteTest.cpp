@@ -4,6 +4,7 @@
 
 #include "gtest/gtest.h"
 #include "Utente.h"
+#include <cstdio>
 
 // Testo che il costruttore salvi correttamente i dati
 TEST(UtenteTest, CostruttoreEGetter) {
@@ -58,4 +59,60 @@ TEST(UtenteTest, ModificaPassword) {
 
     // La nuova password deve funzionare
     EXPECT_TRUE(u.login("MarioRossi", "nuovaPass"));
+}
+
+TEST(UtenteTest, SalvataggioCaricamento) {
+
+    // --- PREPARO I DATI ---
+    std::string fileTest = "test_utenti_temp.txt";
+    std::list<Utente*> utentiOriginali;
+
+    // Creo Mario con 2 liste
+    auto* u1 = new Utente("Mario", "1234");
+    u1->aggiungiListaPermessa("casa.txt");
+    u1->aggiungiListaPermessa("mamma.txt");
+    utentiOriginali.push_back(u1);
+
+    // Creo Luigi con 0 liste
+    auto* u2 = new Utente("Luigi", "5678");
+    utentiOriginali.push_back(u2);
+
+    // --- SALVATAGGIO ---
+    bool salvataggio = Utente::salvaUtenti(fileTest, utentiOriginali);
+    EXPECT_TRUE(salvataggio);
+
+    // --- CARICAMENTO ---
+    std::list<Utente*> utentiCaricati;
+    bool caricamento = Utente::caricaUtenti(fileTest, utentiCaricati);
+    EXPECT_TRUE(caricamento);
+
+    // --- VERIFICA DEI DATI ---
+    // Ci devono essere 2 utenti
+    ASSERT_EQ(utentiCaricati.size(), 2);
+
+    // Controllo il primo (Mario)
+    Utente* marioCaricato = utentiCaricati.front();
+    EXPECT_EQ(marioCaricato->getNickname(), "Mario");
+    EXPECT_EQ(marioCaricato->getPassword(), "1234");
+
+    // Mario deve avere le sue 2 liste
+    std::list<std::string> listeMario = marioCaricato->getListePermesse();
+    ASSERT_EQ(listeMario.size(), 2);
+    EXPECT_EQ(listeMario.front(), "casa.txt");
+    EXPECT_EQ(listeMario.back(), "mamma.txt");
+
+    // Controllo il secondo (Luigi)
+    Utente* luigiCaricato = utentiCaricati.back();
+    EXPECT_EQ(luigiCaricato->getNickname(), "Luigi");
+    EXPECT_EQ(luigiCaricato->getPassword(), "5678");
+    // Luigi non aveva liste
+    EXPECT_TRUE(luigiCaricato->getListePermesse().empty());
+
+    // --- PULIZIA ---
+    // Cancello memoria allocata e file test
+    for (auto* u : utentiOriginali)
+        delete u;
+    for (auto* u : utentiCaricati)
+        delete u;
+    std::remove(fileTest.c_str());
 }
