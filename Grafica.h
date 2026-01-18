@@ -14,6 +14,7 @@ public:
     static bool ordinaProdotti(const Prodotto& a, const Prodotto& b);
     static std::string adattaTesto(std::string testo, int lunghezzaMax);
     static void stampaResoconto(const ListaSpesa& lista);
+    static void pulisciSchermo();
 };
 
 #endif // GRAFICA_H

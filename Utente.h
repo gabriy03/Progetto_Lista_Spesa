@@ -31,6 +31,7 @@ public:
 
     // Metodi che gestiscono le liste collegate a un utente
     void aggiungiListaPermessa(const std::string& nomeFile);
+    void rimuoviListaPermessa(const std::string& nomeFile);
     const std::list<std::string>& getListePermesse() const;
 
     // Metodi che servono salvare/caricare gli utenti su/da file

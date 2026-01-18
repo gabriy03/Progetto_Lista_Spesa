@@ -44,6 +44,10 @@ void Utente::aggiungiListaPermessa(const std::string& nomeFile) {
     listePermesse.push_back(nomeFile);
 }
 
+void Utente::rimuoviListaPermessa(const std::string& nomeFile) {
+    listePermesse.remove(nomeFile);
+}
+
 const std::list<std::string>& Utente::getListePermesse() const {
     return listePermesse;
 }

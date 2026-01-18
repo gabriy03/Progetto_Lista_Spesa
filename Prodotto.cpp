@@ -20,7 +20,7 @@ Prodotto::Prodotto(std::string nome, std::string marca, std::string categoria, i
         c = std::toupper(c);
     }
 
-    // Converto marca in MAIUSCOLO
+    // Converto categoria in MAIUSCOLO
     for (char &c : this->categoria) {
         c = std::toupper(c);
     }

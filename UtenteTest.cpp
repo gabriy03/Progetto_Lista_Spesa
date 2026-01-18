@@ -70,12 +70,17 @@ TEST(UtenteTest, SalvataggioCaricamento) {
     // Creo Mario con 2 liste
     auto* u1 = new Utente("Mario", "1234");
     u1->aggiungiListaPermessa("casa.txt");
+    u1->aggiungiListaPermessa("DA_CANCELLARE.txt");
     u1->aggiungiListaPermessa("mamma.txt");
     utentiOriginali.push_back(u1);
 
     // Creo Luigi con 0 liste
     auto* u2 = new Utente("Luigi", "5678");
     utentiOriginali.push_back(u2);
+
+    // Provo la cancellazione
+    u1->rimuoviListaPermessa("DA_CANCELLARE.txt");
+    ASSERT_EQ(u1->getListePermesse().size(), 2);
 
     // --- SALVATAGGIO ---
     bool salvataggio = Utente::salvaUtenti(fileTest, utentiOriginali);
@@ -95,7 +100,7 @@ TEST(UtenteTest, SalvataggioCaricamento) {
     EXPECT_EQ(marioCaricato->getNickname(), "Mario");
     EXPECT_EQ(marioCaricato->getPassword(), "1234");
 
-    // Mario deve avere le sue 2 liste
+    // Mario deve avere 2 liste ora
     std::list<std::string> listeMario = marioCaricato->getListePermesse();
     ASSERT_EQ(listeMario.size(), 2);
     EXPECT_EQ(listeMario.front(), "casa.txt");

@@ -31,12 +31,7 @@ void Grafica::stampaResoconto(const ListaSpesa& lista) {
     std::list<Prodotto> prodottiOrdinati = lista.getProdotti();
     prodottiOrdinati.sort(ordinaProdotti);
 
-    // Mi serve per pulire lo schermo
-    #ifdef _WIN32
-        system("cls");
-    #else
-        system("clear");
-    #endif
+    pulisciSchermo();
 
     std::cout << "\n====================================================================================================\n";
     std::cout << "                                  RESOCONTO: " << lista.getNomeListaSpesa() << "\n";
@@ -47,7 +42,7 @@ void Grafica::stampaResoconto(const ListaSpesa& lista) {
               << std::setw(20) << "MARCA"
               << std::setw(20) << "CATEGORIA"
               << std::setw(10) << "QUANTITA'"
-              << std::setw(15) << "PREZZO UNITARIO"
+              << std::setw(15) << "PREZZO UN."
               << "\n";
     std::cout << "----------------------------------------------------------------------------------------------------\n";
 
@@ -76,4 +71,10 @@ void Grafica::stampaResoconto(const ListaSpesa& lista) {
     if (std::cin.peek() == '\n')
         std::cin.ignore();
     std::cin.get();
+}
+
+void Grafica::pulisciSchermo() {
+    for (int i = 0; i < 5; i++) {
+        std::cout << "\n";
+    }
 }
